@@ -37,12 +37,11 @@ H2_IDS = [
 def render_article_html(desc_text):
     """
     Parses Markdown description into semantic HTML matching Bissau layout
-    with modern pill chips for lists and article image block after 3rd paragraph.
+    with feature-grid lists and NO internal article images.
     """
     blocks = [b.strip() for b in desc_text.split('\n\n') if b.strip()]
     lines = []
     h2_index = 0
-    p_count = 0
     
     for b in blocks:
         if b.startswith('# '):
@@ -56,7 +55,7 @@ def render_article_html(desc_text):
             else:
                 lines.append(f'          <h2>{heading_text}</h2>')
         elif b.startswith('- '):
-            lines.append('          <ul class="pill-list">')
+            lines.append('          <ul class="feature-grid">')
             for item in b.split('\n'):
                 item = item.strip()
                 if not item:
@@ -65,19 +64,12 @@ def render_article_html(desc_text):
                 lines.append(f'            <li>{val}</li>')
             lines.append('          </ul>')
         else:
-            p_count += 1
             if b.startswith('**') and b.endswith('**'):
                 bold_content = b[2:-2].strip()
                 lines.append(f'          <p><strong>{bold_content}</strong></p>')
             else:
-                lines.append(f'          <p>{b}</p>')
-            
-            # Place article image block right after paragraph 3
-            if p_count == 3:
-                lines.append('          <div class="article-image-block">')
-                lines.append('            <img src="../assets/imgs/ports-image.jpg"')
-                lines.append('              alt="Ship Supply Operations">')
-                lines.append('          </div>')
+                clean_p = b.replace('\n', ' ')
+                lines.append(f'          <p>{clean_p}</p>')
                 
     return '\n'.join(lines)
 
@@ -100,7 +92,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
         parts.append(supply_variant)
     parts.extend([
         f"port {clean_name.lower()} vessel supply",
-        "bulgaria ship chandler",
+        "croatia ship chandler",
         "provisions",
         "marine stores",
         "bonded stores",
@@ -110,9 +102,9 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
         "marine procurement"
     ])
     new_keywords = ", ".join(parts)
-    new_canonical = f"https://shipchandlerbulgaria.com/ports/{slug}"
+    new_canonical = f"https://shipchandlercroatia.com/ports/{slug}"
 
-    # Style H1 with signature italic mint accent on "Chandler"
+    # Style H1 with signature italic accent on "Chandler"
     if re.search(r'\b(Chandlers?)\b', h1, flags=re.I):
         h1_styled = re.sub(r'\b(Chandlers?)\b', r'<em>\1</em>', h1, count=1, flags=re.I)
     else:
@@ -135,7 +127,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
     content="{meta_desc}">
   <meta name="keywords"
     content="{new_keywords}">
-  <meta name="author" content="SHIP CHANDLER BULGARIA CO., LTD">
+  <meta name="author" content="SHIP CHANDLER CROATIA CO., LTD">
   <link rel="canonical" href="{new_canonical}">
 
   <!-- Open Graph Meta Tags -->
@@ -144,7 +136,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
     content="{meta_desc}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{new_canonical}">
-  <meta property="og:site_name" content="Ship Chandler Bulgaria">
+  <meta property="og:site_name" content="Ship Chandler Croatia">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -156,7 +148,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
   <!-- Font Awesome -->
@@ -173,14 +165,14 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
 
 <body>
 
-  <!-- FLOATING CAPSULE NAVBAR -->
+  <!-- NAVBAR -->
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a class="logo" href="../index.html">
-        <img src="../assets/imgs/logo.png" alt="Ship Chandler Bulgaria Logo">
+        <img src="../assets/imgs/logo.png" alt="Ship Chandler Croatia Logo">
         <span class="logo-text">
           <strong>ShipChandler</strong>
-          <span>Bulgaria</span>
+          <span>Croatia</span>
         </span>
       </a>
 
@@ -193,7 +185,6 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
           <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
 
-          <!-- Services Dropdown -->
           <li class="nav-item has-dropdown">
             <a class="nav-link" href="../services.html">Services <span class="nav-arrow"><svg viewBox="0 0 24 24"
                   width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -217,7 +208,6 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
             </div>
           </li>
 
-          <!-- Ports Mega Menu -->
           <li class="nav-item has-mega active">
             <a class="nav-link" href="javascript:void(0)">Ports <span class="nav-arrow"><svg viewBox="0 0 24 24"
                   width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -232,15 +222,13 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
                   <input type="text" id="mega-port-search" placeholder="Search 49 ports...">
                 </div>
               </div>
-              <div class="mega-grid" id="mega-port-list">
-                <!-- Populated via JS -->
-              </div>
+              <div class="mega-grid" id="mega-port-list"></div>
             </div>
           </li>
 
           <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
         </ul>
-        <a class="btn btn-sage" style="padding: 10px 24px; font-size: 0.85rem;" href="../request-quote.html">Get
+        <a class="btn btn-red" style="padding: 10px 24px; font-size: 0.82rem;" href="../request-quote.html">Get
           Quote</a>
       </nav>
     </div>
@@ -249,8 +237,8 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
   <main>
     <!-- SUBPAGE HERO -->
     <section class="subpage-hero">
-      <img src="../assets/imgs/hero.jpg"
-        alt="{h1}" class="subpage-hero-bg">
+      <img src="../assets/imgs/hero.jpg" alt="{h1}" class="subpage-hero-bg">
+      <div class="subpage-hero-overlay"></div>
       <div class="container subpage-hero-content">
         <ul class="breadcrumb reveal">
           <li><a href="../index.html">Home</a></li>
@@ -266,11 +254,11 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
     <section class="article-section">
       <div class="container">
 
-        <!-- Modern Quick Navigation (Replaces Sidebar TOC) -->
+        <!-- Modern Quick Navigation (Sticky Bar) -->
         <div class="quick-nav-wrapper reveal">
           <div class="quick-nav">
             <a href="#professional-services">Professional Ship Supply</a>
-            <a href="#provisions">Ship Provisions</a>
+            <a href="#provisions">Provisions</a>
             <a href="#bonded">Bonded Stores</a>
             <a href="#deck">Deck Stores</a>
             <a href="#engine">Engine Stores</a>
@@ -282,6 +270,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
             <a href="#spare-parts">Spare Parts</a>
             <a href="#publications">Nautical Charts</a>
             <a href="#tools">Tools & Hardware</a>
+            <a href="#technical-support">Technical Support</a>
             <a href="#urgent">Urgent Supply</a>
             <a href="#vessels">Vessels Supported</a>
             <a href="#rfq">How to Send RFQ</a>
@@ -300,17 +289,17 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-top">
         <div class="footer-brand">
           <a class="logo" href="../index.html">
             <img src="../assets/imgs/logo.png" alt="Logo">
             <span class="logo-text">
               <strong>ShipChandler</strong>
-              <span>Bulgaria</span>
+              <span>Croatia</span>
             </span>
           </a>
-          <p>SHIP CHANDLER BULGARIA CO., LTD is a licensed marine supplier providing food provisions, food stores, bond
-            store supply, drinks, snacks, and emergency vessel supply services across all major Bulgarian ports.</p>
+          <p>SHIP CHANDLER CROATIA CO., LTD is a licensed marine supplier providing food provisions, food stores, bond
+            store supply, drinks, snacks, and emergency vessel supply services across all major Croatian ports.</p>
         </div>
 
         <div class="footer-col">
@@ -336,24 +325,15 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
         </div>
 
         <div class="footer-col">
-          <h4>Contact Us</h4>
+          <h4>Contact</h4>
           <ul class="footer-contact">
-            <li><i class="fas fa-map-marker-alt"></i> Port of Varna, 1 Slaveikov Square, 9000 Varna, Bulgaria</li>
-            <li><i class="fas fa-envelope"></i> <a href="mailto:sales@shipchandlerbulgaria.com"
-                style="color:inherit;">sales@shipchandlerbulgaria.com</a></li>
-            <li><i class="fas fa-user-tie"></i> Nikolay Petrov</li>
-            <li>
-              <a class="hero-whatsapp-bar" href="https://wa.me/6590190005" target="_blank" rel="noopener noreferrer"
-                aria-label="Direct WhatsApp contact (+65-9019-0005)">
-                <span class="hero-whatsapp-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                    <path
-                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                </span>
-                <span class="hero-whatsapp-tag">WhatsApp:</span>
-                <span class="hero-whatsapp-num">(+65-9019-0005)</span>
-                <span class="hero-whatsapp-arrow" aria-hidden="true">&rarr;</span>
+            <li><i class="fas fa-map-marker-alt"></i> Port of Rijeka, Riva 1, 51000 Rijeka, Croatia</li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:sales@shipchandlercroatia.com"
+                style="color:inherit;">sales@shipchandlercroatia.com</a></li>
+            <li><i class="fas fa-user-tie"></i> Ivan Kovačević</li>
+            <li style="margin-top: 10px;">
+              <a class="footer-whatsapp-btn" href="https://wa.me/6590190005" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> WhatsApp: (+65-9019-0005)
               </a>
             </li>
           </ul>
@@ -361,7 +341,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 SHIP CHANDLER BULGARIA CO., LTD. All rights reserved.</div>
+        <div>&copy; 2026 SHIP CHANDLER CROATIA CO., LTD. All rights reserved.</div>
       </div>
     </div>
   </footer>
@@ -373,7 +353,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
   </a>
 
   <script>
-    // --- Port List Data for Dropdown (49 Ports) ---
+    // --- Global Port List (49 Ports) ---
     const ports = [
       "Ship Chandler Dar Es Salaam", "Ship Chandler Apapa", "Ship Chandler Onne Port Nigeria", "San Pedro Ship Supply Chandler",
       "Ship Chandler Abidjan", "Ship Chandler Freetown", "Monrovia Ship Chandler", "Ship Chandler Maputo", "Ship Chandler Matadi",
@@ -495,7 +475,7 @@ def build_page_html(page_name, h1, meta_title, meta_desc, full_desc, slug):
 
         headings.forEach(heading => {{
           const headingTop = heading.offsetTop;
-          if (scrollY >= headingTop - 160) {{
+          if (scrollY >= headingTop - 200) {{
             current = heading.getAttribute('id');
           }}
         }});

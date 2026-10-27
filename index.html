@@ -30,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome -->
@@ -58,9 +58,9 @@
             --gray-500: #7A7269;
             --gray-700: #2C2620;
 
-            --radius-sm: 6px;
-            --radius-md: 18px;
-            --radius-lg: 40px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 32px;
             --radius-full: 9999px;
 
             --shadow-sm: 0 4px 15px rgba(11, 27, 58, 0.05);
@@ -71,8 +71,8 @@
             --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             --transition-fast: all 0.3s ease;
 
-            --font-heading: 'DM Serif Display', serif;
-            --font-body: 'Outfit', sans-serif;
+            --font-heading: 'Fraunces', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
         }
 
         *,
@@ -129,7 +129,7 @@
         h5,
         h6 {
             font-family: var(--font-heading);
-            font-weight: 400;
+            font-weight: 600;
             line-height: 1.1;
             color: var(--navy);
             letter-spacing: -0.01em;
@@ -203,7 +203,7 @@
         }
 
         /* =========================================
-           NAVBAR - GLASS PILL WITH OFFSET
+           NAVBAR - SLIGHTLY SQUARED PILL
         ========================================= */
         .site-header {
             position: fixed;
@@ -221,10 +221,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-radius: var(--radius-full);
+            border-radius: 12px;
             box-shadow: 0 8px 32px rgba(11, 27, 58, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
@@ -235,6 +235,7 @@
 
         .site-header.scrolled .header-inner {
             box-shadow: 0 15px 45px rgba(11, 27, 58, 0.12);
+            border-radius: 8px;
         }
 
         .logo {
@@ -258,13 +259,14 @@
         }
 
         .logo-text strong {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--navy);
+            font-weight: 600;
         }
 
         .logo-text span {
             font-family: var(--font-body);
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: var(--red);
             font-weight: 700;
             letter-spacing: 0.25em;
@@ -312,11 +314,11 @@
             align-items: center;
             gap: 6px;
             padding: 10px 18px;
-            font-size: 0.88rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--navy);
             transition: var(--transition);
-            border-radius: var(--radius-full);
+            border-radius: 8px;
         }
 
         .nav-link:hover,
@@ -335,15 +337,15 @@
             transform: rotate(180deg);
         }
 
-        /* Hover bridge */
+        /* Invisible bridge to prevent hover loss */
         .nav-item.has-dropdown::after,
         .nav-item.has-mega::after {
             content: '';
             position: absolute;
-            bottom: -20px;
+            bottom: -25px;
             left: 0;
             width: 100%;
-            height: 25px;
+            height: 30px;
             background: transparent;
             z-index: 999;
         }
@@ -351,7 +353,7 @@
         /* Services Dropdown */
         .dropdown-menu {
             position: absolute;
-            top: calc(100% + 5px);
+            top: calc(100% + 15px);
             left: 0;
             transform: translateY(10px);
             background: var(--white);
@@ -390,7 +392,7 @@
             padding-left: 24px;
         }
 
-        /* Ports Mega Menu */
+        /* Ports Mega Menu - Centered via left: 50% */
         .mega-menu {
             position: fixed;
             top: 85px;
@@ -415,6 +417,11 @@
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
+        }
+
+        .nav-item.has-mega::after {
+            height: 60px;
+            bottom: -50px;
         }
 
         .mega-menu::-webkit-scrollbar {
@@ -474,7 +481,7 @@
 
         .mega-group h4 {
             font-family: var(--font-body);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
@@ -538,6 +545,7 @@
             font-style: italic;
             color: var(--red);
             display: block;
+            font-weight: 400;
         }
 
         .hero-subtitle {
@@ -614,6 +622,7 @@
         .hero-badge span {
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.85);
+            font-family: var(--font-body);
         }
 
         .hero-shape {
@@ -868,7 +877,7 @@
         }
 
         /* =========================================
-           WHY US - OVERLAPPING CARDS ON DARK BG
+           WHY US - ACCORDION / LIST STYLE
         ========================================= */
         .why-us {
             padding: 140px 0;
@@ -891,83 +900,115 @@
             background: radial-gradient(circle, rgba(232, 41, 59, 0.15) 0%, transparent 70%);
         }
 
-        .why-us-header {
-            text-align: left;
-            margin-bottom: 70px;
-            max-width: 600px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .why-us-header h2 {
-            color: var(--white);
-            font-size: clamp(2.5rem, 4vw, 3.8rem);
-            margin-bottom: 20px;
-        }
-
-        .why-us-header p {
-            color: var(--gray-300);
-            max-width: 500px;
-            font-size: 1rem;
-        }
-
-        .why-grid {
+        .why-layout {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 80px;
             position: relative;
             z-index: 1;
         }
 
-        .why-card {
+        .why-header {
+            position: sticky;
+            top: 140px;
+            align-self: start;
+        }
+
+        .why-header h2 {
+            color: var(--white);
+            font-size: clamp(2.8rem, 4vw, 4rem);
+            margin-bottom: 20px;
+            line-height: 1.05;
+        }
+
+        .why-header p {
+            color: var(--gray-300);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 400px;
+        }
+
+        .why-list {
             display: flex;
             flex-direction: column;
-            padding: 36px 30px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .why-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 40px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
+            cursor: default;
             position: relative;
         }
 
-        .why-card:hover {
-            background: rgba(255, 255, 255, 0.09);
-            border-color: var(--red);
-            transform: translateY(-6px);
+        .why-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(232, 41, 59, 0.05);
+            transition: var(--transition);
+            z-index: -1;
         }
 
-        .why-card-icon {
-            flex-shrink: 0;
-            width: 48px;
-            height: 48px;
-            background: rgba(232, 41, 59, 0.15);
-            border-radius: var(--radius-sm);
+        .why-item:hover::before {
+            width: 100%;
+        }
+
+        .why-item:hover {
+            padding-left: 30px;
+            border-bottom-color: rgba(232, 41, 59, 0.3);
+        }
+
+        .why-item-number {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--red);
+            line-height: 1;
+            opacity: 0.5;
+            transition: var(--transition);
+            font-weight: 400;
+        }
+
+        .why-item:hover .why-item-number {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .why-item-content {
+            flex: 1;
+        }
+
+        .why-item-header {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .why-item-header i {
             color: var(--red);
             font-size: 1.2rem;
-            margin-bottom: 24px;
-            transition: var(--transition);
         }
 
-        .why-card:hover .why-card-icon {
-            background: var(--red);
+        .why-item-header h3 {
             color: var(--white);
-        }
-
-        .why-card-content h3 {
-            color: var(--white);
-            font-size: 1.15rem;
-            margin-bottom: 10px;
+            font-size: 1.25rem;
             font-family: var(--font-body);
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .why-card-content p {
+        .why-item p {
             color: var(--gray-300);
-            font-size: 0.88rem;
+            font-size: 0.95rem;
             line-height: 1.7;
+            max-width: 500px;
         }
 
         /* =========================================
@@ -1207,39 +1248,41 @@
             font-size: 0.9rem;
         }
 
+        /* Footer WhatsApp Button */
+        .footer-whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border: 1.5px solid #25D366;
+            border-radius: var(--radius-full);
+            color: #25D366;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .footer-whatsapp-btn i {
+            font-size: 1.2rem;
+        }
+
+        .footer-whatsapp-btn:hover {
+            background: #25D366;
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
         .footer-bottom {
             padding: 30px 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             font-size: 0.82rem;
             color: var(--gray-300);
             flex-wrap: wrap;
             gap: 16px;
-        }
-
-        .footer-bottom .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 22px;
-            border: 1.5px solid #25D366;
-            border-radius: var(--radius-full);
-            color: #25D366;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .footer-bottom .whatsapp-btn i {
-            font-size: 1.1rem;
-        }
-
-        .footer-bottom .whatsapp-btn:hover {
-            background: #25D366;
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
         }
 
         /* =========================================
@@ -1340,8 +1383,14 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            .why-grid {
-                grid-template-columns: 1fr 1fr;
+            .why-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .why-header {
+                position: relative;
+                top: 0;
             }
 
             .footer-top {
@@ -1482,8 +1531,14 @@
                 grid-template-columns: 1fr;
             }
 
-            .why-grid {
-                grid-template-columns: 1fr;
+            .why-item {
+                flex-direction: column;
+                gap: 16px;
+                padding: 30px 10px;
+            }
+
+            .why-item:hover {
+                padding-left: 10px;
             }
 
             .footer-top {
@@ -1580,10 +1635,10 @@
                                 </svg></span></a>
                         <div class="mega-menu">
                             <div class="mega-header">
-                                <div class="mega-header-title">Croatian Port Network</div>
+                                <div class="mega-header-title">Global Port Network</div>
                                 <div class="mega-search">
                                     <i class="fas fa-search" style="color:var(--gray-500);"></i>
-                                    <input type="text" id="mega-port-search" placeholder="Search ports...">
+                                    <input type="text" id="mega-port-search" placeholder="Search 49 ports...">
                                 </div>
                             </div>
                             <div class="mega-grid" id="mega-port-list"></div>
@@ -1617,7 +1672,7 @@
 
                     <div class="hero-image-container">
                         <div class="hero-image-frame">
-                            <img src="./assets/imgs/varna-home.jpg" alt="Cargo Ship at Port">
+                            <img src="./assets/imgs/coroatia-home.jpg" alt="Cargo Ship at Port">
                         </div>
                         <div class="hero-badge">
                             <i class="fas fa-ship"></i>
@@ -1654,7 +1709,7 @@
                             </div>
                             <div class="feature-item">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>13 Croatian Ports</span>
+                                <span>10+ Croatian Ports</span>
                             </div>
                             <div class="feature-item">
                                 <i class="fas fa-check-double"></i>
@@ -1728,70 +1783,99 @@
                 </div>
 
                 <div class="services-cta reveal">
-                    <a class="btn btn-outline" href="services.html">View Full Services Catalog</a>
+                    <a class="btn btn-outline" href="services.html">View All Services</a>
                 </div>
             </div>
         </section>
 
-        <!-- WHY US - OVERLAPPING CARDS ON DARK -->
+        <!-- WHY US - ACCORDION / LIST STYLE -->
         <section class="why-us">
             <div class="container">
-                <div class="why-us-header reveal">
-                    <span class="section-label" style="color: var(--red);">Why Choose Us</span>
-                    <h2>Why Choose Ship Chandler Croatia?</h2>
-                    <p>We combine local expertise with international standards to deliver reliable, efficient marine
-                        supply services.</p>
-                </div>
+                <div class="why-layout">
 
-                <div class="why-grid">
-                    <div class="why-card reveal">
-                        <div class="why-card-icon"><i class="fas fa-headset"></i></div>
-                        <div class="why-card-content">
-                            <h3>Single Point of Contact</h3>
-                            <p>Manage all your supply categories through one dedicated operations desk, saving you time
-                                and streamlining your port call.</p>
+                    <!-- Sticky Header -->
+                    <div class="why-header reveal">
+                        <span class="section-label" style="color: var(--red);">Why Choose Us</span>
+                        <h2>Why Choose Ship Chandler Croatia?</h2>
+                        <p>We combine local expertise with international standards to deliver reliable, efficient marine
+                            supply services.</p>
+                    </div>
+
+                    <!-- Interactive List -->
+                    <div class="why-list">
+                        <div class="why-item reveal">
+                            <div class="why-item-number">01</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-headset"></i>
+                                    <h3>Single Point of Contact</h3>
+                                </div>
+                                <p>Manage all your supply categories through one dedicated operations desk, saving you
+                                    time and streamlining your port call.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item reveal reveal-delay-1">
+                            <div class="why-item-number">02</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-bolt"></i>
+                                    <h3>Fast RFQ Turnaround</h3>
+                                </div>
+                                <p>We prioritize prompt communication and accurate quotation to match the fast pace of
+                                    your vessel's schedule.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item reveal reveal-delay-2">
+                            <div class="why-item-number">03</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-tags"></i>
+                                    <h3>Competitive Pricing</h3>
+                                </div>
+                                <p>Benefit from cost-effective sourcing without ever compromising on the quality of
+                                    products and service.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item reveal">
+                            <div class="why-item-number">04</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-globe"></i>
+                                    <h3>Local & International Sourcing</h3>
+                                </div>
+                                <p>Direct access to trusted local suppliers and global networks for specialized marine
+                                    products.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item reveal reveal-delay-1">
+                            <div class="why-item-number">05</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-boxes"></i>
+                                    <h3>Consolidated Delivery</h3>
+                                </div>
+                                <p>Combine provisions and technical stores into one coordinated, single delivery to your
+                                    vessel.</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item reveal reveal-delay-2">
+                            <div class="why-item-number">06</div>
+                            <div class="why-item-content">
+                                <div class="why-item-header">
+                                    <i class="fas fa-check-double"></i>
+                                    <h3>IMPA Compliance</h3>
+                                </div>
+                                <p>Full support for IMPA and specification-based requisitions for accurate and
+                                    effortless ordering.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="why-card reveal reveal-delay-1">
-                        <div class="why-card-icon"><i class="fas fa-bolt"></i></div>
-                        <div class="why-card-content">
-                            <h3>Fast RFQ Turnaround</h3>
-                            <p>We prioritize prompt communication and accurate quotation to match the fast pace of your
-                                vessel's schedule.</p>
-                        </div>
-                    </div>
-                    <div class="why-card reveal reveal-delay-2">
-                        <div class="why-card-icon"><i class="fas fa-tags"></i></div>
-                        <div class="why-card-content">
-                            <h3>Competitive Pricing</h3>
-                            <p>Benefit from cost-effective sourcing without ever compromising on the quality of products
-                                and service.</p>
-                        </div>
-                    </div>
-                    <div class="why-card reveal">
-                        <div class="why-card-icon"><i class="fas fa-globe"></i></div>
-                        <div class="why-card-content">
-                            <h3>Local & International Sourcing</h3>
-                            <p>Direct access to trusted local suppliers and global networks for specialized marine
-                                products.</p>
-                        </div>
-                    </div>
-                    <div class="why-card reveal reveal-delay-1">
-                        <div class="why-card-icon"><i class="fas fa-boxes"></i></div>
-                        <div class="why-card-content">
-                            <h3>Consolidated Delivery</h3>
-                            <p>Combine provisions and technical stores into one coordinated, single delivery to your
-                                vessel.</p>
-                        </div>
-                    </div>
-                    <div class="why-card reveal reveal-delay-2">
-                        <div class="why-card-icon"><i class="fas fa-check-double"></i></div>
-                        <div class="why-card-content">
-                            <h3>IMPA Compliance</h3>
-                            <p>Full support for IMPA and specification-based requisitions for accurate and effortless
-                                ordering.</p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -1894,16 +1978,18 @@
                         <li><i class="fas fa-envelope"></i> <a href="mailto:sales@shipchandlercroatia.com"
                                 style="color:inherit;">sales@shipchandlercroatia.com</a></li>
                         <li><i class="fas fa-user-tie"></i> Ivan Kovačević</li>
-                        <li><i class="fas fa-phone-alt"></i> (+65-9019-0005)</li>
+                        <li style="margin-top: 10px;">
+                            <a class="footer-whatsapp-btn" href="https://wa.me/6590190005" target="_blank"
+                                rel="noopener noreferrer">
+                                <i class="fab fa-whatsapp"></i> WhatsApp: (+65-9019-0005)
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <div>&copy; 2026 SHIP CHANDLER CROATIA CO., LTD. All rights reserved.</div>
-                <a class="whatsapp-btn" href="https://wa.me/6590190005" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-whatsapp"></i> WhatsApp: (+65-9019-0005)
-                </a>
             </div>
         </div>
     </footer>
@@ -1915,13 +2001,19 @@
     </a>
 
     <script>
-        // --- Croatian Port List ---
+        // --- Global Port List (49 Ports) ---
         const ports = [
-            "Ship Chandler Rijeka", "Ship Chandler Ploce", "Ship Chandler Split",
-            "Ship Chandler Sibenik", "Ship Chandler Zadar", "Ship Chandler Dubrovnik",
-            "Ship Chandler Pula", "Ship Chandler Rovinj", "Ship Chandler Bakar",
-            "Ship Chandler Omisalj", "Ship Chandler Senj", "Ship Chandler Korcula",
-            "Ship Chandler Vukovar"
+            "Ship Chandler Dar Es Salaam", "Ship Chandler Apapa", "Ship Chandler Onne Port Nigeria", "San Pedro Ship Supply Chandler",
+            "Ship Chandler Abidjan", "Ship Chandler Freetown", "Monrovia Ship Chandler", "Ship Chandler Maputo", "Ship Chandler Matadi",
+            "Ship Chandler Beira", "Ship Chandler Angola", "Ship Chandler Lobito", "ShipChandler Lome", "Shipchandler Lome",
+            "Ivory Coast Ship Chandler", "Nouadhibou Ship Chandler", "Ship Chandler Luanda", "Ship Chandler Cape Verde",
+            "Ship Chandler Gabon", "Ship Chandler Namibia", "Walvis Bay Ship Chandler", "Ship Chandler Gentil Port - Gabon",
+            "Ship Chandler Takoradi", "Ship Chandler Congo", "Shipchandler Lagos", "Ship Chandler Port Ambon",
+            "Shipchandler Pointe Noire", "Ship Chandler Djibouti", "Ship Chandler Cabinda", "Ship Chandler Tema",
+            "Ship Chandler Mindelo", "Ship Chandler Casablanca", "Ship Chandler Safi Port Morocco", "Ship Chandler Kamsar",
+            "Ship Chandler Soyo", "Dakar Ship Chandler", "Ship Chandler Senegal", "Ship Chandler Dakar", "Bissau Ship Chandler - Guinea",
+            "Conakry Ship Chandler", "Ship Chandler Cotonou", "Douala Ship Chandler", "Liberia Ship Chandler", "Namibia Ship Chandler",
+            "Ship Chandler Dakar", "Ship Chandler Mombasa", "Ship Chandlers Saldanha Bay", "Ship Chandler Owendo", "Ship Chandlers Richards Bay"
         ];
 
         // Populate Mega Menu
@@ -1947,10 +2039,10 @@
                 return group;
             }
 
-            megaList.appendChild(createPortGroup('Adriatic Ports (A-D)', col1));
-            megaList.appendChild(createPortGroup('Adriatic Ports (E-M)', col2));
-            megaList.appendChild(createPortGroup('Adriatic Ports (N-S)', col3));
-            megaList.appendChild(createPortGroup('Adriatic Ports (T-Z)', col4));
+            megaList.appendChild(createPortGroup('African Ports (A-D)', col1));
+            megaList.appendChild(createPortGroup('African Ports (E-M)', col2));
+            megaList.appendChild(createPortGroup('African Ports (N-S)', col3));
+            megaList.appendChild(createPortGroup('African Ports (T-Z)', col4));
 
             // Mega Menu Search
             const searchInput = document.getElementById('mega-port-search');
